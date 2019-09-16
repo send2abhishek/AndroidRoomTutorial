@@ -7,11 +7,15 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.attra.androidroomtutorial.Database.Employee;
 import com.attra.androidroomtutorial.ViewModels.MainActivityViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,5 +56,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         viewModel.IncrementCounterByOne();
+    }
+
+    public void shwodata(View view) {
+
+        LiveData<List<Employee>> listLiveData=viewModel.getEmps();
+        listLiveData.observe(this, new Observer<List<Employee>>() {
+            @Override
+            public void onChanged(@Nullable List<Employee> employees) {
+
+                Log.d("Aryan", "Employee data is -"+  employees.size());
+
+                for (Employee emp:employees) {
+
+
+                    Log.d("Aryan", "Employee data is -"+  emp.getEmail());
+                }
+
+            }
+        });
+
+
+
     }
 }

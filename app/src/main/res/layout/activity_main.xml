@@ -23,4 +23,13 @@
         android:layout_centerHorizontal="true"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="shwodata"
+        android:text="showData"
+        android:layout_below="@id/activity_main_counter_btn"
+        android:layout_centerHorizontal="true"
+        />
+
 </RelativeLayout>
