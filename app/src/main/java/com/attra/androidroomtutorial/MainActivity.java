@@ -1,7 +1,10 @@
 package com.attra.androidroomtutorial;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,11 +37,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         viewModel= ViewModelProviders.of(this).get(MainActivityViewModel.class);
         counterTextView.setText(String.valueOf(viewModel.getCounter()));
+
+        LiveData<Integer> counterData=viewModel.getCounter();
+        counterData.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                counterTextView.setText(String.valueOf(integer));
+            }
+        });
+
     }
 
     @Override
     public void onClick(View v) {
 
-        counterTextView.setText(String.valueOf(viewModel.IncrementCounterByOne()));
+        viewModel.IncrementCounterByOne();
     }
 }
